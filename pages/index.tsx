@@ -12,6 +12,7 @@ const Home: NextPage = () => {
 
   const [web3, setWeb3] = React.useState<Web3>()
   const [provider, setProvider] = React.useState()
+  const [account, setAccount] = React.useState("")
 
   const connect = React.useCallback(async () => {
     const providerOptions = {}
@@ -24,8 +25,14 @@ const Home: NextPage = () => {
   React.useEffect(() => {
     console.log(provider)
     const web3Init = async () => {
-      if (provider != undefined) setWeb3(new Web3(provider))
+      if (provider != undefined) {
+        setWeb3(new Web3(provider))
+        // @notice for some reason provider shows up as never
+        // @ts-ignore
+        setAccount(provider.selectedAddress)
+      }
     }
+
     web3Init()
   }, [provider])
 
@@ -42,9 +49,16 @@ const Home: NextPage = () => {
         <div className={styles.title}>
           Welcome to <span className={styles.highlight}> Wallet Template</span>
         </div>
-        <div className={styles.description}>
-          This is a template for a <b><i>web3</i></b> wallet application.
-        </div>
+        {account != undefined && account.length > 0 ? (
+          <div className={styles.description}>
+            You wallet address is <b><i>{account.slice(0, 6) + "..." + account.slice(-5, -1)}</i></b>
+          </div>
+        ) : (
+          <div className={styles.description}>
+            This is a template for a <b><i>web3</i></b> wallet application.
+          </div>
+        )
+        }
         {/* Button to open wallet */}
         <div className={styles.button} onClick={connect}>
           Connect to wallet
