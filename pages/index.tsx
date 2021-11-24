@@ -15,12 +15,13 @@ const Home: NextPage = () => {
   const [account, setAccount] = React.useState("")
 
   const connect = React.useCallback(async () => {
+    if (account !== "") return
     const providerOptions = {}
     const web3Modal = new Web3Modal({
       providerOptions // required
     })
     setProvider(await web3Modal.connect())
-  }, [])
+  }, [account])
 
   React.useEffect(() => {
     console.log(provider)
@@ -61,7 +62,7 @@ const Home: NextPage = () => {
         }
         {/* Button to open wallet */}
         <div className={styles.button} onClick={connect}>
-          Connect to wallet
+          {account.length > 0 ? "Connected" : "Connect to wallet"}
         </div>
       </div>
     </div>
