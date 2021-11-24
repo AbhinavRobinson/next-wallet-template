@@ -61,9 +61,9 @@ const Home: NextPage = () => {
         )
         }
         {/* Button to open wallet */}
-        <div className={styles.button} onClick={connect}>
+        <button className={(account.length > 0 ? styles["connected"] : styles["button"])} onClick={connect} disabled={account.length > 0}>
           {account.length > 0 ? "Connected" : "Connect to wallet"}
-        </div>
+        </button>
       </div>
     </div>
   )
