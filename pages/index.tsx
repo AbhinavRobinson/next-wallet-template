@@ -7,6 +7,9 @@ import Web3 from "web3"
 import Web3Modal from "web3modal"
 
 const Home: NextPage = () => {
+
+  // ---------- MAIN WALLET CONNECT LOGIC ----------
+
   const [web3, setWeb3] = React.useState<Web3>()
   const [provider, setProvider] = React.useState()
 
@@ -26,6 +29,8 @@ const Home: NextPage = () => {
     web3Init()
   }, [provider])
 
+  // ---------- END OF WALLET CONNECT LOGIC ----------
+
   return (
     <div className={styles.container}>
       <Head>
@@ -38,7 +43,7 @@ const Home: NextPage = () => {
           Welcome to <span className={styles.highlight}> Wallet Template</span>
         </div>
         <div className={styles.description}>
-          This is a template for a wallet application.
+          This is a template for a <b><i>web3</i></b> wallet application.
         </div>
         {/* Button to open wallet */}
         <div className={styles.button} onClick={connect}>
